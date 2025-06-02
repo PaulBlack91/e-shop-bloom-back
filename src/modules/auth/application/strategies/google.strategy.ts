@@ -32,7 +32,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 }
 
 // -----------------------------------------------
-
+// esto lo hice en el otro proyecto...
 // import { PassportStrategy } from '@nestjs/passport';
 // import { Injectable } from '@nestjs/common';
 // import { Strategy, VerifyCallback } from 'passport-google-oauth20';
