@@ -14,9 +14,9 @@ export class UserService {
     return this.userRepository.findAll();
   }
 
-  async findOneById(id: string) {
+  async findById(id: string) {
     try {
-      const response = await this.userRepository.findOneById(id);
+      const response = await this.userRepository.findById(id);
       if (!response) {
         throw new Error(`User with ID ${id} not found`);
       }
@@ -26,8 +26,8 @@ export class UserService {
     }
   }
 
-  async findOneByEmail(email: string) {
-    const response = await this.userRepository.findOneByEmail(email);
+  async findByEmail(email: string) {
+    const response = await this.userRepository.findByEmail(email);
     if (!response) {
       throw new Error(`User with email ${email} not found`);
     }

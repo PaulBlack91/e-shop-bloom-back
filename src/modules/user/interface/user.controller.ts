@@ -21,13 +21,13 @@ export class UserController {
   }
 
   @Get(':id')
-  async findOneById(@Param('id') id: string) {
-    return this.userService.findOneById(id);
+  async findById(@Param('id') id: string) {
+    return this.userService.findById(id);
   }
 
   @Get('email/:email')
-  async findOneByEmail(@Param('email') email: string) {
-    return this.userService.findOneByEmail(email);
+  async findByEmail(@Param('email') email: string) {
+    return this.userService.findByEmail(email);
   }
 
   @Post()
