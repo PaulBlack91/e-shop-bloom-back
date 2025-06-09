@@ -1,7 +1,7 @@
 // infrastructure/auth/controllers/auth.controller.ts
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from '../../application/infrastructure/auth/auth.service';
+import { AuthService } from '../../application/service/auth.service';
 import { GoogleUser } from 'src/modules/user/application/dtos/create-user.dto';
 
 @Controller('auth')

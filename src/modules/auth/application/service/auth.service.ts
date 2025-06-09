@@ -1,13 +1,13 @@
 // application/services/auth.service.ts
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepository } from 'src/modules/user/application/repository/user.repository';
 import { GoogleUser } from 'src/modules/user/application/dtos/create-user.dto';
+import { UserService } from 'src/modules/user/application/service/user.service';
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userRepository: UserRepository,
+    private readonly userRepository: UserService,
   ) {}
 
   generateToken(payload: any): string {
