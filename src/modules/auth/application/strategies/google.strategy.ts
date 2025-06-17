@@ -22,6 +22,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: Profile,
     done: VerifyCallback,
   ): any {
+    if (!profile) {
+      return done(new Error('No profile data received from Google'), false);
+    }
+
     const { name, emails } = profile;
 
     const user = {
