@@ -1,5 +1,5 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback, Profile } from 'passport-google-oauth20';
+import { Strategy, Profile } from 'passport-google-oauth20';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -11,29 +11,20 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientSecret: configService.getOrThrow('GOOGLE_CLIENT_SECRET'),
       callbackURL: configService.getOrThrow('GOOGLE_CALLBACK_URL'),
       scope: ['profile', 'email'],
-      passReqToCallback: true,
     });
   }
 
-  // luego agregar async await cuando tenga la base de datos
-  validate(
+  async validate(
     accessToken: string,
     refreshToken: string,
     profile: Profile,
-    done: VerifyCallback,
-  ): any {
-    if (!profile) {
-      return done(new Error('No profile data received from Google'), false);
-    }
-
+  ): Promise<any> {
     const { name, emails } = profile;
 
-    const user = {
+    return {
       name: name?.givenName + ' ' + name?.familyName,
       email: emails?.[0]?.value ?? '',
       provider: 'google',
     };
-
-    done(null, user);
   }
 }

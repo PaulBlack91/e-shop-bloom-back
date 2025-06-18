@@ -26,17 +26,25 @@ export class UserService {
     }
   }
 
+  // async findByEmail(email: string) {
+  //   const response = await this.userRepository.findByEmail(email);
+  //   if (!response) {
+  //     throw new Error(`User with email ${email} not found`);
+  //   }
+  //   return response;
+  // }
+
   async findByEmail(email: string) {
-    const response = await this.userRepository.findByEmail(email);
-    if (!response) {
-      throw new Error(`User with email ${email} not found`);
-    }
-    return response;
+    return this.userRepository.findByEmail(email); // sin error
   }
 
   async create(user: CreateUserDto) {
     try {
-      return this.userRepository.create(user);
+      const createdUser = await this.userRepository.create(user);
+      if (!createdUser) {
+        throw new Error('Failed to create user');
+      }
+      return createdUser;
     } catch (error) {
       console.error('Error creating user:', error);
       throw new Error('Failed to create user');

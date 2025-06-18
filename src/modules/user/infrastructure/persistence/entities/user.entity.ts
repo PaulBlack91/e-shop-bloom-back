@@ -16,7 +16,7 @@ export class UserEntity {
   email: string;
 
   @Column({ length: 255 })
-  fullName: string;
+  name: string;
 
   @CreateDateColumn()
   createdAt: Date;

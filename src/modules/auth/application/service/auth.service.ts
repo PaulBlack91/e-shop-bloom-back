@@ -17,6 +17,8 @@ export class AuthService {
   async handleGoogleLogin(googleUser: GoogleUser) {
     let user = await this.userRepository.findByEmail(googleUser.email);
 
+    console.log('Google User:', googleUser);
+
     if (!user) {
       user = await this.userRepository.create({
         name: googleUser.name,
