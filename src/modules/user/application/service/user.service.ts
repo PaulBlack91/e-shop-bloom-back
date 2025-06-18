@@ -26,14 +26,6 @@ export class UserService {
     }
   }
 
-  // async findByEmail(email: string) {
-  //   const response = await this.userRepository.findByEmail(email);
-  //   if (!response) {
-  //     throw new Error(`User with email ${email} not found`);
-  //   }
-  //   return response;
-  // }
-
   async findByEmail(email: string) {
     return this.userRepository.findByEmail(email); // sin error
   }
