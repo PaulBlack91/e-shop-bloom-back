@@ -15,11 +15,11 @@ import { AuthModule } from './modules/auth/auth.module';
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
         host: configService.get<string>('DB_HOST'),
-        port: parseInt(configService.get<string>('DB_PORT', '5432')),
+        port: parseInt(configService.get<string>('DB_PORT', '3306')),
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        entities: [__dirname + '/modules/**/*.entity{.ts,.js}'],
         synchronize: true,
       }),
     }),
