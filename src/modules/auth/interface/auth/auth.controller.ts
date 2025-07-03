@@ -24,7 +24,7 @@ export class AuthController {
     // Redireccionar al frontend con el token y datos del usuario
     const token = result.access_token;
     const userData = encodeURIComponent(JSON.stringify(result.user));
-    const redirectUrl = `http://localhost:5174/auth/callback?token=${token}&user=${userData}`;
+    const redirectUrl = `http://localhost:5173/auth/callback?token=${token}&user=${userData}`;
 
     return res.redirect(redirectUrl);
   }
