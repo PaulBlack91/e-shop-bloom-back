@@ -2,12 +2,17 @@ import { Inject, Injectable } from '@nestjs/common';
 import { USER_REPOSITORY, UserRepository } from '../repository/user.repository';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserCourseEntity } from '../../../course/infrastructure/persistence/entities/user-course.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject(USER_REPOSITORY)
     private readonly userRepository: UserRepository,
+    @InjectRepository(UserCourseEntity)
+    private readonly userCourseRepository: Repository<UserCourseEntity>,
   ) {}
 
   async findAll() {
@@ -58,6 +63,34 @@ export class UserService {
     } catch (error) {
       console.error('Error deleting user:', error);
       throw new Error(`Failed to delete user with ID ${id}`);
+    }
+  }
+
+  async getPurchasedCourses(userId: string) {
+    try {
+      // Buscar todos los cursos comprados por el usuario
+      const userCourses = await this.userCourseRepository.find({
+        where: {
+          userId: userId,
+          hasAccess: true,
+        },
+        select: ['courseId'],
+      });
+
+      // Extraer solo los IDs de los cursos
+      const purchasedCourses = userCourses.map((uc) => uc.courseId);
+
+      // TODO: Determinar si tiene todos los cursos (por ahora hardcoded a 3)
+      const totalCourses = 3; // Número total de cursos disponibles
+      const hasAllCourses = purchasedCourses.length === totalCourses;
+
+      return {
+        purchasedCourses,
+        hasAllCourses,
+      };
+    } catch (error) {
+      console.error('Error getting purchased courses:', error);
+      throw new Error(`Failed to get purchased courses for user ${userId}`);
     }
   }
 }

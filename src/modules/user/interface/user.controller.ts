@@ -30,6 +30,11 @@ export class UserController {
     return this.userService.findByEmail(email);
   }
 
+  @Get(':id/purchased-courses')
+  async getPurchasedCourses(@Param('id') userId: string) {
+    return this.userService.getPurchasedCourses(userId);
+  }
+
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
